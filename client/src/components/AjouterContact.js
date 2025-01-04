@@ -3,7 +3,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import  { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function AjouterContact(){
 
@@ -11,6 +11,8 @@ export default function AjouterContact(){
     const [nom, setNom] = useState("");
     const [mail, setMail] = useState("");
     const [tel, setTel] = useState("");
+    const navigate = useNavigate();
+
 
     const [formData, setFormData] = useState({
         nom: "",
@@ -42,12 +44,13 @@ export default function AjouterContact(){
       console.log("Données soumises :", formData);
 
     
-      axios.post("http://localhost:8000/api/post",{nom,mail,tel}).then(()=>{
+      axios.post("http://localhost:8000/api/post",formData).then(()=>{
         alert("Données envoyées avec succès !");
             setNom("")
             setMail("")
             setTel("")
             console.log("Données envoyées avec succès !");
+            navigate('/')
 
         }).catch((error)=>{
           console.error("Erreur lors de l'envoi des données :", error);

@@ -13,7 +13,6 @@ export default function ListeContactPage(){
       try {
         const response = await axios.get("http://localhost:8000/api/get");
     
-        // Assurez-vous que 'response.data' contient les données attendues
         if (response.data) {
           console.log("Données récupérées :", response.data);
           setData(response.data); // Stockez les données
@@ -23,10 +22,6 @@ export default function ListeContactPage(){
       } catch (error) {
         console.error("Erreur lors de la récupération des données :", error);
       }
-        // const response = await axios.get("http://localhost:8000/api/get").then((response)=>{
-        //   console.log(response.data)
-        // })
-        // setData(response.data)
 
     }
 
@@ -34,6 +29,21 @@ export default function ListeContactPage(){
         loaddata()
     },[]);
  
+
+    const handleDelete = (id) => {
+      if (window.confirm("Voulez-vous vraiment supprimer ce contact ?")) {
+          axios.delete(`http://localhost:8000/api/delete/${id}`)
+              .then(() => {
+                  // Mettre à jour la liste après suppression
+                  setData(data.filter((data) => data.id !== id));
+                  alert("Contact supprimé avec succès.");
+              })
+              .catch((error) => {
+                  console.error("Erreur lors de la suppression :", error);
+                  alert("Une erreur s'est produite.");
+              });
+      }
+  };
 
     return(
     <>
@@ -94,7 +104,7 @@ export default function ListeContactPage(){
               <i className="fas fa-eye" style={{ marginRight: "5px" }}></i>
               </button>
               <button 
-            //   onClick={() => handleDelete(da.id)} 
+              onClick={() => handleDelete(da.id)} 
               className="btn btn-danger" style={{ marginRight: "5px",  }}>
               <i className="fas fa-trash" style={{ marginRight: "5px" }}></i> 
               </button>
