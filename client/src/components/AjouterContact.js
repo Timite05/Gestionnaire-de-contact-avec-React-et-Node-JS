@@ -1,7 +1,7 @@
 import '../App.css';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import  { useState, useEffect } from 'react';
+import  { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,8 +12,6 @@ export default function AjouterContact(){
     const [mail, setMail] = useState("");
     const [tel, setTel] = useState("");
     const navigate = useNavigate();
-
-
     const [formData, setFormData] = useState({
         nom: "",
         mail: "",
@@ -34,9 +32,6 @@ export default function AjouterContact(){
           tel: value, // Mise à jour uniquement du champ téléphone
         }));
       };
-
-      
-
 
     const handleSubmit=(e)=>{
 
@@ -166,9 +161,7 @@ export default function AjouterContact(){
               countryCodeEditable={false}
             />
           </div>
-            {/* <link to="/"> */}
             <button type="submit" style={buttonStyle}  >Ajouter</button>
-            {/* </link> */}
         </form>
       </div>
     </div>
